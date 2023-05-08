@@ -8,8 +8,11 @@ from transformers import  AdamW, get_linear_schedule_with_warmup
 import torch
 import pandas as pd
 import json
+import torch.distributed as dist
+from torch.utils.data.distributed import DistributedSampler
+from torch.nn.parallel import DistributedDataParallel
 
-def main():
+def train():
     # read config
     with open('config.json', 'r') as f:
         config = json.load(f)
@@ -168,4 +171,6 @@ def main():
     # torch.save(promptModel.state_dict(), state_dict_path)
 
 if __name__ == '__main__':
-    main()
+    num_gpus = torch.cuda.device_count()
+    world_size = num_gpus  # 每个GPU对应一个进程
+    mp.spawn(train, args=(world_size,), nprocs=num_gpus, join=True)

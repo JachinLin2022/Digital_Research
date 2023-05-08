@@ -24,8 +24,9 @@ def main():
     train_data_path = config['train_data_path']
     eval_data_path = config['eval_data_path']
     eval_result_path = config['eval_result_path']
+    validate_data_path = config['validate_data_path']
     
-    df = pd.read_csv(eval_data_path,nrows=100)
+    df = pd.read_csv(eval_data_path)
     dataset = [] 
     for i in range(len(df)): 
         example = InputExample(

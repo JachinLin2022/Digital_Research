@@ -1,3 +1,5 @@
 *.csv
 *.pth
 *.xlsx
+ESimCSE
+SimCSE
