@@ -8,7 +8,8 @@ from transformers import  AdamW, get_linear_schedule_with_warmup
 import torch
 import pandas as pd
 import json
-
+from sklearn.metrics import f1_score,precision_score, recall_score, accuracy_score
+import numpy as np
 def main():
     # read config
     with open('config.json', 'r') as f:
@@ -44,18 +45,18 @@ def main():
     ]
 
     promptTemplate = ManualTemplate(
-        text = '{"placeholder":"text_a"} It was {"mask"} that the above text is related to the price trend of Bitcoin.',
-        # text = '{"placeholder":"text_a"} Is it related to the price trend of Bitcoin? {"mask"}.',
+        # text = '{"placeholder":"text_a"} It was {"mask"} that the above text is related to the price trend of Bitcoin.',
+        text = '{"placeholder":"text_a"} Is it related to the price trend of Bitcoin? {"mask"}.',
         tokenizer = tokenizer,
     )
 
     promptVerbalizer = ManualVerbalizer(
         classes = classes,
         label_words = {
-            # "negative": ["false", "wrong", "no", "False", "Wrong", "No"],
-            # "positive": ["true", "right", "yes", "True", "Right", "Yes"],
-            "negative": ["false", "wrong"],
-            "positive": ["true", "right"],
+            "negative": ["false", "wrong", "no", "False", "Wrong", "No"],
+            "positive": ["true", "right", "yes", "True", "Right", "Yes"],
+            # "negative": ["false", "wrong"],
+            # "positive": ["true", "right"],
         },
         tokenizer = tokenizer,
     )
@@ -95,9 +96,12 @@ def main():
             print(len(predict_result)/len(df))
             # print(classes[preds])
     # print(predict_result)
+
+    
+    df['prompt_label'] = ''
     for index, row in df.iterrows():
-        df.at[index, 'relative'] = int(predict_result[index])
-    df[['id','full_text','relative']].to_csv(eval_result_path,index=False)
+        df.at[index, 'prompt_label'] = int(predict_result[index])
+    df.to_csv(eval_result_path,index=False)
     
 if __name__ == '__main__':
     main()

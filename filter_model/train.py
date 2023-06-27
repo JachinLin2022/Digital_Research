@@ -14,7 +14,7 @@ def main():
     with open('config.json', 'r') as f:
         config = json.load(f)
     print(json.dumps(config, indent=4))
-    epoch = config['epoch']
+    epochs = config['epoch']
     lr = config['lr']
     train_batch_size = config['train_batch_size']
     eval_batch_size = config['eval_batch_size']
@@ -31,7 +31,7 @@ def main():
         example = InputExample(
             guid=i, 
             text_a=df.iloc[i]['full_text'],
-            label=int(df.iloc[i]['relative'])
+            label=int(df.iloc[i]['label'])
             ) 
         dataset.append(example)
 
@@ -41,7 +41,7 @@ def main():
         example = InputExample(
             guid=i, 
             text_a=validate_df.iloc[i]['full_text'],
-            label=int(validate_df.iloc[i]['relative'])
+            label=int(validate_df.iloc[i]['label'])
             ) 
         validate_dataset.append(example)
 
@@ -62,10 +62,10 @@ def main():
     promptVerbalizer = ManualVerbalizer(
         classes = classes,
         label_words = {
-            # "negative": ["false", "wrong", "no", "False", "Wrong", "No"],
-            # "positive": ["true", "right", "yes", "True", "Right", "Yes"],
-            "negative": ["false", "wrong","False", "Wrong"],
-            "positive": ["true", "right", "True", "Right"],
+            "negative": ["false", "wrong", "no", "False", "Wrong", "No"],
+            "positive": ["true", "right", "yes", "True", "Right", "Yes"],
+            # "negative": ["false", "wrong","False", "Wrong"],
+            # "positive": ["true", "right", "True", "Right"],
         },
         tokenizer = tokenizer,
     )
@@ -107,7 +107,7 @@ def main():
     
     
     
-    promptModel = torch.nn.parallel.DataParallel(promptModel, device_ids=[2])
+    # promptModel = torch.nn.parallel.DataParallel(promptModel, device_ids=[2])
     promptModel = promptModel.cuda(to_device)
     
 
@@ -118,8 +118,8 @@ def main():
     # alllabels = []
     # with torch.no_grad():
     #     for step, inputs in enumerate(validation_dataloader):
-    #         if use_cuda:
-    #             inputs = inputs.cuda(to_device)
+
+    #         inputs = inputs.cuda(to_device)
     #         logits = promptModel(inputs)
     #         labels = inputs['label']
     #         alllabels.extend(labels.cpu().tolist())
@@ -131,7 +131,10 @@ def main():
     # optimizer = AdamW(optimizer_grouped_parameters, lr=lr)
     optimizer = torch.optim.AdamW(optimizer_grouped_parameters, lr=lr)
     
-    for epoch in range(epoch):
+    acc_list = []
+    steps = []
+    best_acc = 0
+    for epoch in range(epochs):
         tot_loss = 0
         promptModel.train()
         train_step = 0
@@ -145,24 +148,43 @@ def main():
             optimizer.step()
             optimizer.zero_grad()
             train_step = step
-            if step %100 ==1:
-                print("Epoch {}, average loss: {}".format(epoch, tot_loss/(step+1)), flush=True)
+            # if step %100 ==1:
+            #     print("Epoch {}, average loss: {}".format(epoch, tot_loss/(step+1)), flush=True)
 
         # validate eval
-        # promptModel.eval()
-        # allpreds = []
-        # alllabels = []
-        # with torch.no_grad():
-        #     for step, inputs in enumerate(validation_dataloader):
-        #         if use_cuda:
-        #             inputs = inputs.cuda(to_device)
-        #         logits = promptModel(inputs)
-        #         labels = inputs['label']
-        #         alllabels.extend(labels.cpu().tolist())
-        #         allpreds.extend(torch.argmax(logits, dim=-1).cpu().tolist())
+        promptModel.eval()
+        allpreds = []
+        alllabels = []
+        with torch.no_grad():
+            for step, inputs in enumerate(validation_dataloader):
 
-        # acc = sum([int(i==j) for i,j in zip(allpreds, alllabels)])/len(allpreds)
-        # print("Epoch {}, average loss: {}, acc: {}".format(epoch, tot_loss/(train_step + 1), acc), flush=True)
+                inputs = inputs.cuda(to_device)
+                logits = promptModel(inputs)
+                labels = inputs['label']
+                alllabels.extend(labels.cpu().tolist())
+                allpreds.extend(torch.argmax(logits, dim=-1).cpu().tolist())
+
+        acc = sum([int(i==j) for i,j in zip(allpreds, alllabels)])/len(allpreds)
+        if acc > best_acc:
+            best_acc = acc
+            print("Got best acc: {}".format(best_acc))
+            torch.save(promptModel.state_dict(), state_dict_path)
+        
+        # acc_list.append(acc)
+        # steps.append(epoch + 1)
+        # import matplotlib.pyplot as plt
+        # # 画出训练过程中eval_acc的变化曲线
+        # print(steps)
+        # plt.plot(steps,acc_list, label='Train')
+        # # plt.plot(test_acc_list, label='Test')
+        # plt.xlabel('Epoch')
+        # plt.ylabel('Accuracy')
+        # plt.title('Training Process')
+        # plt.ylim([0, 1])
+        # # plt.legend()
+        # plt.savefig('./prompt1.png')
+        
+        print("Epoch {}, average loss: {}, acc: {}".format(epoch, tot_loss/(train_step + 1), acc), flush=True)
 
     
     # torch.save(promptModel.state_dict(), state_dict_path)

@@ -2,4 +2,4 @@
 *.pth
 *.xlsx
 ESimCSE
-SimCSE
+SimCSE/runs

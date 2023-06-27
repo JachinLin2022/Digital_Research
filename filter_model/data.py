@@ -52,7 +52,7 @@ def construct_simcse_train_txt():
     # print(tweets)
     
 def construct_simcse_train_csv():
-    tweets = pd.read_csv('/home/linzhisheng/Digital_Research/filter_model/data/label_tweets.csv')
+    tweets = pd.read_csv('/home/linzhisheng/Digital_Research/filter_model/data/filter_model_validate_set.csv')
 
     # tweets[['sent0','sent1']].to_csv('/home/linzhisheng/Digital_Research/SimCSE-main/data/nli_for_simcse_test.csv',index=False)
     # tweets = tweets[tweets['relative'] == 1]
@@ -76,5 +76,13 @@ def construct_simcse_train_csv():
     
     df = pd.DataFrame(res, columns=["full_text", "label"])
     print(df.iloc[0])
-    df.to_csv('data/test.csv',index=False)
-construct_simcse_train_csv()
+    df.to_csv('/home/linzhisheng/Digital_Research/SimCSE/data/validate.csv',index=False)
+
+
+
+data1 = pd.read_csv('/home/linzhisheng/Digital_Research/filter_model/data/filter_tweets_sample.csv')
+data2 = pd.read_csv('/home/linzhisheng/Digital_Research/filter_model/data/filter_model_validate_set.csv')
+
+data = pd.concat([data1,data2])
+data.to_csv('/home/linzhisheng/Digital_Research/filter_model/data/filter_model_data.csv',index=False)
+print(data)
