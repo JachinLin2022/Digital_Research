@@ -1,0 +1,13 @@
+{
+    "epoch": 20,
+    "lr": 1e-5,
+    "train_batch_size": 4,
+    "eval_batch_size": 32,
+    "device": "cuda:0",
+    "train_data_path": "/home/linzhisheng/Digital_Research/filter_model/data/filter_model_data.csv",
+    "validate_data_path": "/home/linzhisheng/Digital_Research/filter_model/data/filter_model_manual_400.csv",
+    "eval_data_path": "/home/linzhisheng/Digital_Research/result.csv",
+    "eval_result_path": "/home/linzhisheng/Digital_Research/result_filter_prompt.csv",
+    "model_path":"cardiffnlp/twitter-roberta-large-2022-154m",
+    "local_state_dict_path": "/home/linzhisheng/Digital_Research/filter_model/model/twitter-roberta-large-2022-154m-prompt1.pth"
+}
