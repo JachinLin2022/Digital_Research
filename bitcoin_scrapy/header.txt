@@ -1,0 +1,17 @@
+accept: */*
+accept-encoding: gzip, deflate, br
+accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+authorization: Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA
+cookie: des_opt_in=Y; _gcl_au=1.1.1660749528.1682045394; _ga_BYKEBDM7DS=GS1.1.1682045457.1.1.1682045825.0.0.0; _gid=GA1.2.1832494759.1682147536; g_state={"i_l":0}; kdt=ZxbbvuTrQ2LawKJw9B5nZFrOM1K9uwfeWp3EAYxY; lang=en; at_check=true; mbox=PC#e8a1b9038d94404088dd7f0a660f8f4e.38_0#1745322056|session#3bc37df98b4f4ab6a168b4b10e1ecfab#1682256634; _ga_34PHSZMC42=GS1.1.1682254791.7.0.1682254796.0.0.0; _ga=GA1.2.675183452.1681958678; ads_prefs="HBERAAA="; auth_multi="1512657962770534400:ea949eb486a43142c488676858148e790af6d55a"; auth_token=bf411409189e86f229f85b880e3cc08695b23a3c; guest_id_ads=v1%3A168225807869432462; guest_id_marketing=v1%3A168225807869432462; guest_id=v1%3A168225807869432462; twid=u%3D1649246438059302912; ct0=d5eba6a7c3f1b62c3e2f049805af3165b0c096caa9adc3f0744c6e3a254dc77b593b77a3519a02b12e51a23b2c01761b35cec3ead07dff17e2f3dbd29a948f2fdb9e193fc46ee490fb27af208c836224; personalization_id="v1_xUBULxk/gT+iI7MIy9EazA=="
+referer: https://twitter.com/search?q=%23bitcoin%20until%3A2022-04-02%20since%3A2022-04-01&src=saved_search_click
+sec-ch-ua: "Chromium";v="112", "Microsoft Edge";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+sec-fetch-dest: empty
+sec-fetch-mode: cors
+sec-fetch-site: same-origin
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48
+x-csrf-token: d5eba6a7c3f1b62c3e2f049805af3165b0c096caa9adc3f0744c6e3a254dc77b593b77a3519a02b12e51a23b2c01761b35cec3ead07dff17e2f3dbd29a948f2fdb9e193fc46ee490fb27af208c836224
+x-twitter-active-user: yes
+x-twitter-auth-type: OAuth2Session
+x-twitter-client-language: en
