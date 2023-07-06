@@ -1,0 +1,286 @@
+'result'{
+    "entryId": "tweet-1280648901910040579",
+    "sortIndex": "1676658011893873840",
+    "content": {
+        "entryType": "TimelineTimelineItem",
+        "__typename": "TimelineTimelineItem",
+        "itemContent": {
+            "itemType": "TimelineTweet",
+            "__typename": "TimelineTweet",
+            "tweet_results": {
+                "result": {
+                    "__typename": "Tweet",
+                    "rest_id": "1280648901910040579",
+                    "core": {
+                        "user_results": {}
+                    },
+                    "card": {
+                        "rest_id": "https://t.co/okWxACu8AS",
+                        "legacy": {
+                            "binding_values": [
+                                {
+                                    "key": "thumbnail_original",
+                                    "value": {
+                                        "image_value": {
+                                            "height": 512,
+                                            "width": 512,
+                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=jpg&name=orig"
+                                        },
+                                        "type": "IMAGE"
+                                    }
+                                },
+                                {
+                                    "key": "app_star_rating",
+                                    "value": {
+                                        "string_value": "4.65278",
+                                        "type": "STRING"
+                                    }
+                                },
+                                {
+                                    "key": "thumbnail_large",
+                                    "value": {
+                                        "image_value": {
+                                            "height": 280,
+                                            "width": 280,
+                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=jpg&name=280x280"
+                                        },
+                                        "type": "IMAGE"
+                                    }
+                                },
+                                {
+                                    "key": "description",
+                                    "value": {
+                                        "string_value": "This is Real Time Music Playing, Cryptocurrency Paying, Free Money Radio, Cyber.FM",
+                                        "type": "STRING"
+                                    }
+                                },
+                                {
+                                    "key": "thumbnail_small",
+                                    "value": {
+                                        "image_value": {
+                                            "height": 100,
+                                            "width": 100,
+                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=jpg&name=100x100"
+                                        },
+                                        "type": "IMAGE"
+                                    }
+                                },
+                                {
+                                    "key": "thumbnail_color",
+                                    "value": {
+                                        "image_color_value": {
+                                            "palette": [
+                                                {
+                                                    "rgb": {
+                                                        "blue": 255,
+                                                        "green": 255,
+                                                        "red": 255
+                                                    },
+                                                    "percentage": 74.57
+                                                },
+                                                {
+                                                    "rgb": {
+                                                        "blue": 2,
+                                                        "green": 2,
+                                                        "red": 2
+                                                    },
+                                                    "percentage": 24.16
+                                                },
+                                                {
+                                                    "rgb": {
+                                                        "blue": 114,
+                                                        "green": 114,
+                                                        "red": 114
+                                                    },
+                                                    "percentage": 1.83
+                                                }
+                                            ]
+                                        },
+                                        "type": "IMAGE_COLOR"
+                                    }
+                                },
+                                {
+                                    "key": "site",
+                                    "value": {
+                                        "scribe_key": "publisher_id",
+                                        "type": "USER",
+                                        "user_value": {
+                                            "id_str": "37498503",
+                                            "path": []
+                                        }
+                                    }
+                                },
+                                {
+                                    "key": "thumbnail_x_large",
+                                    "value": {
+                                        "image_value": {
+                                            "height": 512,
+                                            "width": 512,
+                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=png&name=2048x2048_2_exp"
+                                        },
+                                        "type": "IMAGE"
+                                    }
+                                },
+                                {
+                                    "key": "app_num_ratings",
+                                    "value": {
+                                        "string_value": "72",
+                                        "type": "STRING"
+                                    }
+                                },
+                                {
+                                    "key": "app_price_amount",
+                                    "value": {
+                                        "string_value": "0.0",
+                                        "type": "STRING"
+                                    }
+                                },
+                                {
+                                    "key": "thumbnail",
+                                    "value": {
+                                        "image_value": {
+                                            "height": 144,
+                                            "width": 144,
+                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=jpg&name=144x144"
+                                        },
+                                        "type": "IMAGE"
+                                    }
+                                },
+                                {
+                                    "key": "app_name",
+                                    "value": {
+                                        "string_value": "Cyber.FM",
+                                        "type": "STRING"
+                                    }
+                                },
+                                {
+                                    "key": "title",
+                                    "value": {
+                                        "string_value": "Cyber.FM",
+                                        "type": "STRING"
+                                    }
+                                },
+                                {
+                                    "key": "app_price_currency",
+                                    "value": {
+                                        "string_value": "USD",
+                                        "type": "STRING"
+                                    }
+                                },
+                                {
+                                    "key": "card_url",
+                                    "value": {
+                                        "scribe_key": "card_url",
+                                        "string_value": "https://t.co/okWxACu8AS",
+                                        "type": "STRING"
+                                    }
+                                }
+                            ],
+                            "card_platform": {
+                                "platform": {
+                                    "audience": {
+                                        "name": "production"
+                                    },
+                                    "device": {
+                                        "name": "Swift",
+                                        "version": "12"
+                                    }
+                                }
+                            },
+                            "name": "app",
+                            "url": "https://t.co/okWxACu8AS",
+                            "user_refs_results": [
+                                {}
+                            ]
+                        }
+                    },
+                    "unified_card": {
+                        "card_fetch_state": "NoCard"
+                    },
+                    "edit_control": {
+                        "edit_tweet_ids": [
+                            "1280648901910040579"
+                        ],
+                        "editable_until_msecs": "1594167266178",
+                        "is_edit_eligible": true,
+                        "edits_remaining": "5"
+                    },
+                    "edit_perspective": {
+                        "favorited": false,
+                        "retweeted": false
+                    },
+                    "is_translatable": true,
+                    "views": {
+                        "state": "Enabled"
+                    },
+                    "source": "<a href=\"http://cyber-fm.com\" rel=\"nofollow\">CFM Rock</a>",
+                    "legacy": {
+                        "bookmark_count": 0,
+                        "bookmarked": false,
+                        "created_at": "Tue Jul 07 23:44:26 +0000 2020",
+                        "conversation_id_str": "1280648901910040579",
+                        "display_text_range": [
+                            0,
+                            220
+                        ],
+                        "entities": {
+                            "user_mentions": [],
+                            "urls": [
+                                {
+                                    "display_url": "cyber-fm.com",
+                                    "expanded_url": "https://cyber-fm.com",
+                                    "url": "https://t.co/okWxACu8AS",
+                                    "indices": [
+                                        123,
+                                        146
+                                    ]
+                                }
+                            ],
+                            "hashtags": [
+                                {
+                                    "indices": [
+                                        104,
+                                        119
+                                    ],
+                                    "text": "cryptocurrency"
+                                }
+                            ],
+                            "symbols": []
+                        },
+                        "favorite_count": 0,
+                        "favorited": false,
+                        "full_text": "The greatest decade of all time: Hair Metal! We are playing Beg For Your Love by Rhino Bucket! Get paid #cryptocurrency at https://t.co/okWxACu8AS trade it for Bitcoin, Ethereum, even TRON (We know Justin is a metalhead)",
+                        "is_quote_status": false,
+                        "lang": "en",
+                        "possibly_sensitive": false,
+                        "possibly_sensitive_editable": true,
+                        "quote_count": 0,
+                        "reply_count": 0,
+                        "retweet_count": 0,
+                        "retweeted": false,
+                        "user_id_str": "37520123",
+                        "id_str": "1280648901910040579"
+                    }
+                }
+            },
+            "tweetDisplayType": "Tweet",
+            "highlights": {
+                "textHighlights": [
+                    {
+                        "startIndex": 160,
+                        "endIndex": 167
+                    }
+                ]
+            }
+        },
+        "clientEventInfo": {
+            "component": "result",
+            "element": "tweet",
+            "details": {
+                "timelinesDetails": {
+                    "controllerData": "DAACDAAFDAABDAABDAABCgABAAAAAAAAAAAAAAwAAgoAAQAAAAAAAAABCgACjsnRIKr0nL0KAAVI3K2n1r/X+AgABgAAAAEKAAeZvlLggdT5NgAAAAAA"
+                }
+            }
+        }
+    }
+}

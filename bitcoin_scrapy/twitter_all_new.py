@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore', message='Unverified HTTPS request')
 # 创建线程事件
 event = threading.Event()
 
-def task_new(client:httpx.Client, year, month, day, until, limit):
+def task_new(client:httpx.Client, year, month, day, until, limit,sleep = 0):
     output = f'./tweet/new_day/tweets_{year}_{month+1}_{day+1}.csv'
     # output = f'./tweet/day/test.csv'
     query = f'bitcoin until:{until} since:{year}-{month+1}-{day+1} -filter:replies lang:en'
@@ -96,6 +96,7 @@ def task_new(client:httpx.Client, year, month, day, until, limit):
     zero_count = 0
     res = []
     for i in range(9999):
+        time.sleep(sleep)
         if event.is_set():
             print('event_is_set')
             return 0
@@ -123,16 +124,9 @@ def task_new(client:httpx.Client, year, month, day, until, limit):
 
         
         last_cursor = variables['cursor']
-        # print(msg)
-        # 获取下一个分页的cursor
 
-
-        # for entry in entries:
-        #     if entry['entryId'].find('cursor-bottom') >= 0:
-        #         cursor = entry['content']['value']
-        #         variables['cursor'] = cursor
-        #         params['variables'] = json.dumps(variables)
-
+        if 'search_by_raw_query' not in msg['data']:
+            continue
         for ins in msg['data']['search_by_raw_query']['search_timeline']['timeline']['instructions']:
             if ins['type'] == 'TimelineAddEntries':
                 for entry in ins['entries']:
@@ -158,8 +152,17 @@ def task_new(client:httpx.Client, year, month, day, until, limit):
             #     if cursors['entryId'].find('cursor-bottom') >= 0:
             #         params['cursor'] = cursors['content']['operation']['cursor']['value']
 
-
-
+        # print(msg['data']['search_by_raw_query']['search_timeline']['timeline']['instructions'][0].keys())
+        if 'entries' not in msg['data']['search_by_raw_query']['search_timeline']['timeline']['instructions'][0]:
+            print('no entries')
+            zero_count = zero_count + 1
+            if zero_count == 5:
+                print('no more tweets')
+                break
+            continue
+        else:
+            zero_count = 0
+        
         entries = msg['data']['search_by_raw_query']['search_timeline']['timeline']['instructions'][0]['entries']
 
 
@@ -172,7 +175,7 @@ def task_new(client:httpx.Client, year, month, day, until, limit):
             zero_count = zero_count + 1
         else:
             zero_count = 0
-        if zero_count == 10:
+        if zero_count == 5:
             print('no more tweets')
             # df.at[df.index[-1], 'cursor'] = 'end'
             # df.to_csv(output, index=False)
@@ -227,7 +230,7 @@ def task_new(client:httpx.Client, year, month, day, until, limit):
 
 
 
-        if i > 0 and i % 2 == 0:
+        if i > 0 or i % 1 == 0:
             df.to_csv(output, index=False)
             print(df)
         if len(df) > limit:
@@ -484,8 +487,11 @@ def main(token):
         print('获取token失败', token,str(e))
         return 0
 
-    # task_new(client, 2020, 0, 0, '2020-1-2', 5000)
-    for year in [2020, 2021, 2022, 2023]:
+    # task_new(client, 2020, 0, 2, '2020-1-4', 10000, 0)
+    # if event.is_set():
+    #     event.clear()
+    #     return 0
+    for year in [2021, 2022, 2023]:
         for month in range(12):
             if year == 2023 and month == 5:
                 exit(0)
@@ -499,7 +505,7 @@ def main(token):
                 else:
                     until = f'{year}-{month+1}-{day+2}'
                     # continue
-                t = threading.Thread(target=task_new, args=(client, year, month, day, until,10000))
+                t = threading.Thread(target=task_new, args=(client, year, month, day, until,5000))
                 threads.append(t)
                 t.start()
                 # time.sleep(0.5)
@@ -517,37 +523,46 @@ def main(token):
     # return 0
     return 1
 
-token_list = [
-    'f1eb4d96fe02f7869e0c5236ddbec30182eaf8f0',
-    '079f3dec3af561c35e5f424bd882dab7c1b52f9c',
-    '7765b76a3ececccfaf226c400d3084e4abaf880e',
-    'f7f19908a16147a7cc939eca48124638037b3b59',
-    '44f9f5841fd28eb86fb55d4ef8b04a8dce18f24e',
-    'cbf7824fe1e3c4b78eca5265e55f2b39431e0717',
-    '973a65f2fcbfc39b98a9fe08cd496bc9a963dfdc',
-    'bf411409189e86f229f85b880e3cc08695b23a3c',
-    '0c62c91d080d0e669364311f7f7e635918a7579f',
-    '599c6c8b60276c926207987f56014f16b9941a17',
-    'fe03eff9a5052bfbd3b54aa7df57c7f129b10b0b',
-    '085b22fa102a5481e61472fb799592ed9d67768d',
-    'c2f99b23522d6410ed39b8d872f964e55e70f012',
-    '997b58a2615d821d3e1edf6c188a8f2f21083ef9',
-    'f9edb917f902c10983cc060b82928b8b6d93a5ca',
-    '458286081d82dc803fad54b836e197fff42f9675',
-    '7d53dfe9a983e50201620638b4df9552f80ea194',
-    'd43c6cde80b5c5ca25465c1b7ae7ec407ab14655',
-    '60a35929c86e22816767504d9965c26ac0353ac7',
-    '640743aea2c16d8fec9a8f876945839b093b3c1e'
-]
+# token_list = [
+#     'f1eb4d96fe02f7869e0c5236ddbec30182eaf8f0',
+#     '079f3dec3af561c35e5f424bd882dab7c1b52f9c',
+#     '7765b76a3ececccfaf226c400d3084e4abaf880e',
+#     'f7f19908a16147a7cc939eca48124638037b3b59',
+#     '44f9f5841fd28eb86fb55d4ef8b04a8dce18f24e',
+#     'cbf7824fe1e3c4b78eca5265e55f2b39431e0717',
+#     '973a65f2fcbfc39b98a9fe08cd496bc9a963dfdc',
+#     'bf411409189e86f229f85b880e3cc08695b23a3c',
+#     '0c62c91d080d0e669364311f7f7e635918a7579f',
+#     '599c6c8b60276c926207987f56014f16b9941a17',
+#     'fe03eff9a5052bfbd3b54aa7df57c7f129b10b0b',
+#     '085b22fa102a5481e61472fb799592ed9d67768d',
+#     'c2f99b23522d6410ed39b8d872f964e55e70f012',
+#     '997b58a2615d821d3e1edf6c188a8f2f21083ef9',
+#     'f9edb917f902c10983cc060b82928b8b6d93a5ca',
+#     '458286081d82dc803fad54b836e197fff42f9675',
+#     '7d53dfe9a983e50201620638b4df9552f80ea194',
+#     'd43c6cde80b5c5ca25465c1b7ae7ec407ab14655',
+#     '60a35929c86e22816767504d9965c26ac0353ac7',
+#     '640743aea2c16d8fec9a8f876945839b093b3c1e'
+# ]
+token_list = []
+f = open('account.txt','r')
+for row in f.readlines():
+    # print(row.split('----')[-1])
+    token_list.append(row.split('----')[-1][:-1])
+# print(token_list)
+
+
 import random
 index = random.randint(0, len(token_list) - 1)
+# index = 0
 while (1):
     print('切换token', token_list[index])
     r = main(token_list[index])
     index = index + 1
     if index == len(token_list):
-        time.sleep(60)
+        time.sleep(60*3)
         index = 0
-    time.sleep(5)
+    # time.sleep(5)
     if (r):
         break
