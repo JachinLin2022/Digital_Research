@@ -15,15 +15,20 @@ warnings.filterwarnings('ignore', message='Unverified HTTPS request')
 # os.environ['https_proxy'] = 'http://127.0.0.1:9999'
 # 创建线程事件
 event = threading.Event()
-
+DONE_LIST = []
 def task_new(token, year, month, day, limit, sleep = 0):
 
     output = f'./tweet/new_day/tweets_{year}_{month+1}_{day+1}.csv'
     # output = f'./tweet/day/test.csv'
-
+    if output in DONE_LIST:
+        return
     exist = 0
     if os.path.exists(output):
+        # try:
         df = pd.read_csv(output)
+        # except:
+        #     print(output)
+        #     return 0
         exist = 1
         if len(df) > limit:
             return 1
@@ -71,6 +76,7 @@ def task_new(token, year, month, day, limit, sleep = 0):
         # print(variables['cursor'])
         # print('读取上次爬取位置')
         if last_row['period'].values[0] == 'end' or last_row['period'].values[0] == 'no_entries':
+            DONE_LIST.append(output)
             print('end')
             return
     print(query)
@@ -108,15 +114,15 @@ def task_new(token, year, month, day, limit, sleep = 0):
             res1 = client.get(url=url.format())
             # 第一次访问用于获取response cookie中的ct0字段，并添加到x-csrf-token与cookie中
             ct0 = res1.cookies.get('ct0')
-            print(ct0)
+            # print(ct0)
             client.headers.update({
                 'x-csrf-token': ct0,
                 'cookie': f'auth_token={auth_token};ct0={ct0}'
             })
             break
         except Exception as e:
-            # print('获取token失败', token,str(e))
             if i == 4:
+                print('获取token失败')
                 return 0
 
 
@@ -172,11 +178,7 @@ def task_new(token, year, month, day, limit, sleep = 0):
         # r = requests.get(url=url,params=params,headers=header,verify=False)
         try:
             r = fetch_url(url, params, client)
-            # r = client.get(url=url,params=params)
-            # if r.status_code != 200:
-            #     print(r.content)
-            #     if r.content.find('Rate') >= 0:
-            #         raise Exception('rate limit')
+
         except Exception as e:
             # print(str(e))
             event.set()
@@ -207,16 +209,6 @@ def task_new(token, year, month, day, limit, sleep = 0):
                     # print('update', cursor)
                     variables['cursor'] = cursor
                     params['variables'] = json.dumps(variables)
-            # if 'addEntries' in ins:
-            #     cursors = ins['addEntries']['entries']
-            #     for cursor in cursors:
-            #         if cursor['entryId'].find('cursor-bottom') >= 0:
-            #             # print(cursor['content']['operation']['cursor']['value'])
-            #             params['cursor'] = cursor['content']['operation']['cursor']['value']
-            # else:
-            #     cursors = ins['replaceEntry']['entry']
-            #     if cursors['entryId'].find('cursor-bottom') >= 0:
-            #         params['cursor'] = cursors['content']['operation']['cursor']['value']
 
         # print(msg['data']['search_by_raw_query']['search_timeline']['timeline']['instructions'][0].keys())
         if 'entries' not in msg['data']['search_by_raw_query']['search_timeline']['timeline']['instructions'][0]:
@@ -292,14 +284,7 @@ def task_new(token, year, month, day, limit, sleep = 0):
                     print('error')
                     f.write(str(e))
                     f.write(json.dumps(entry,indent=4))
-                    exit(0)
-
-        
-
-        # print(users.keys())
-
-
-
+                    return 0
 
         if i > 0 or i % 2 == 0:
             df.to_csv(output, index=False)
@@ -308,211 +293,8 @@ def task_new(token, year, month, day, limit, sleep = 0):
             df.to_csv(output, index=False)
             print(df)
             break
-def task(client:httpx.Client, year, month, day, until, limit):
-    output = f'./tweet/day/tweets_{year}_{month+1}_{day+1}.csv'
-    query = f'bitcoin until:{until} since:{year}-{month+1}-{day+1} -filter:replies lang:en'
-    print(query)
-    exist = 0
-    if os.path.exists(output):
-        df = pd.read_csv(output)
-        exist = 1
-    else:
-        df = pd.DataFrame({}, columns=[
-            'id', 'full_text',
-            'created_at',
-            'favorite_count',
-            'quote_count',
-            'reply_count',
-            'retweet_count',
-            'user_id',
-            'user_name',
-            'user_screen_name',
-            'user_description',
-            'user_friends_count',
-            'user_follower_count',
-            'user_favorite_count',
-            'user_media_count',
-            'cursor',
-            'period'
-        ])
-        exist = 0
 
-    url = 'https://twitter.com/i/api/2/search/adaptive.json'
-
-    params = {
-        'include_profile_interstitial_type': '1',
-        'include_blocking': '1',
-        'include_blocked_by': '1',
-        'include_followed_by': '1',
-        'include_want_retweets': '1',
-        'include_mute_edge': '1',
-        'include_can_dm': '1',
-        'include_can_media_tag': '1',
-        'include_ext_has_nft_avatar': '1',
-        'include_ext_is_blue_verified': '1',
-        'include_ext_verified_type': '1',
-        'include_ext_profile_image_shape': '1',
-        'skip_status': '1',
-        'cards_platform': 'Web-12',
-        'include_cards': '1',
-        'include_ext_alt_text': 'true',
-        'include_ext_limited_action_results': 'false',
-        'include_quote_count': 'true',
-        'include_reply_count': '1',
-        'tweet_mode': 'extended',
-        'include_ext_views': 'true',
-        'include_entities': 'true',
-        'include_user_entities': 'true',
-        'include_ext_media_color': 'true',
-        'include_ext_media_availability': 'true',
-        'include_ext_sensitive_media_warning': 'true',
-        'include_ext_trusted_friends_metadata': 'true',
-        'send_error_codes': 'true',
-        'simple_quoted_tweet': 'true',
-        'tweet_search_mode': 'live',
-        # 'q': '#bitcoin until:2022-04-02 since:2022-04-01 lang:en',
-        'q': query,
-        # 'cursor': 'DAACCgACFuZuD_-AJxAKAAMW5m4P_3_Y8AgABAAAAAILAAUAAADoRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJNVTlMVkp3RmNRQWhUMHZleUNWeEFIRlBTMUV2N1hzQUlVOUxXM3psWlFBeFQwdHlEcUZYQUVGUFN0VUd5VlVBQVU5TGx2VzVmUUNSVDB0VldUbWpBRkZQUzRBV0VYc0FrVTlNQkhHVlJ3QVJUMHVRNUVGWUFDRlBTdHZDblhvQUVVOUx0ZjZCV0FBQlQwclBKbUY4QUdGUFMvakFZWDBBTVU5TFRMUXRSZ0F4VDB2TEZRMUdBR0ZQU3d4QmxYMEFVVTlMOFdsQldRQkE9PQgABgAAAAAIAAcAAAAADAAICgABFPSs8mYXwAYAAAA',
-        'vertical': 'default',
-        'query_source': 'typed_query',
-        'count': '100',
-        'requestContext': 'launch',
-        'pc': '1',
-        'spelling_corrections': '1',
-        'include_ext_edit_control': 'true',
-        'ext': 'mediaStats,highlightedLabel,hasNftAvatar,voiceInfo,birdwatchPivot,enrichments,superFollowMetadata,unmentionInfo,editControl,vibe'
-    }
-
-
-    if exist and len(df) > 0:
-        last_row = df.tail(1)
-        last_cursor_val = last_row['cursor'].values[0]
-        params['cursor'] = last_cursor_val
-        print('读取上次爬取位置')
-        # if last_cursor_val == 'end':
-        #     print('end')
-        #     return
-
-    # print(header)
-    # urls = 'https://twitter.com/i/api/2/search/adaptive.json?include_profile_interstitial_type=1&include_blocking=1&include_blocked_by=1&include_followed_by=1&include_want_retweets=1&include_mute_edge=1&include_can_dm=1&include_can_media_tag=1&include_ext_has_nft_avatar=1&include_ext_is_blue_verified=1&include_ext_verified_type=1&include_ext_profile_image_shape=1&skip_status=1&cards_platform=Web-12&include_cards=1&include_ext_alt_text=true&include_ext_limited_action_results=false&include_quote_count=true&include_reply_count=1&tweet_mode=extended&include_ext_views=true&include_entities=true&include_user_entities=true&include_ext_media_color=true&include_ext_media_availability=true&include_ext_sensitive_media_warning=true&include_ext_trusted_friends_metadata=true&send_error_codes=true&simple_quoted_tweet=true&q=%23bitcoin&vertical=default&query_source=typd&count=20&requestContext=launch&pc=1&spelling_corrections=1&include_ext_edit_control=true&ext=mediaStats%2ChighlightedLabel%2ChasNftAvatar%2CvoiceInfo%2CbirdwatchPivot%2Cenrichments%2CsuperFollowMetadata%2CunmentionInfo%2CeditControl%2Cvibe'
-
-    def fetch_url(url, params, client, num_retries=3):
-        try:
-            response = client.get(url=url,params=params)
-        except:
-            if num_retries > 0:
-                time.sleep(1)
-                print('retry')
-                return fetch_url(url, params, client, num_retries-1)
-            else:
-                raise Exception('Failed to fetch url')
-        if response.status_code != 200:
-            print(response.content)
-            if response.content.find('Rate') >= 0:
-                raise Exception('rate limit')
-            elif num_retries > 0:
-                time.sleep(1)
-                # print('retry2')
-                return fetch_url(url, params, client, num_retries-1)
-            else:
-                raise Exception('Failed to fetch url')
-        return response
-
-    zero_count = 0
-    res = []
-    for i in range(9999):
-        if event.is_set():
-            print('event_is_set')
-            return 0
-        if len(df) > limit:
-            # df.to_csv(output, index=False)
-            # print(df)
-            break
-        # r = requests.get(url=url,params=params,headers=header,verify=False)
-        try:
-            r = fetch_url(url, params, client)
-            # r = client.get(url=url,params=params)
-            # if r.status_code != 200:
-            #     print(r.content)
-            #     if r.content.find('Rate') >= 0:
-            #         raise Exception('rate limit')
-        except Exception as e:
-            # print(str(e))
-            event.set()
-            return 0
-        print(f'{year}-{month+1}-{day+1}',r.status_code)
-        msg = json.loads(r.content)
-        tweets = msg['globalObjects']['tweets']
-        users = msg['globalObjects']['users']
-
-        if len(tweets) == 0:
-            zero_count = zero_count + 1
-        else:
-            zero_count = 0
-        if zero_count == 10:
-            print('no more tweets')
-            # df.at[df.index[-1], 'cursor'] = 'end'
-            # df.to_csv(output, index=False)
-            break
-
-        # print(users.keys())
-
-        # 获取下一个分页的cursor
-        for ins in msg['timeline']['instructions']:
-            if 'addEntries' in ins:
-                cursors = ins['addEntries']['entries']
-                for cursor in cursors:
-                    if cursor['entryId'].find('cursor-bottom') >= 0:
-                        # print(cursor['content']['operation']['cursor']['value'])
-                        params['cursor'] = cursor['content']['operation']['cursor']['value']
-            else:
-                cursors = ins['replaceEntry']['entry']
-                if cursors['entryId'].find('cursor-bottom') >= 0:
-                    params['cursor'] = cursors['content']['operation']['cursor']['value']
-
-        # 获取每条帖子的信息
-        for tweet_time_line in tweets.keys():
-            tweet = tweets[tweet_time_line]
-
-            # 获取发帖用户的信息
-            user_id_str = tweet['user_id_str']
-            user = users[user_id_str]
-            # LIMIT = 100
-            # if int(tweet['favorite_count']) < LIMIT and int(tweet['quote_count']) < LIMIT and int(tweet['retweet_count']) < LIMIT and int(tweet['reply_count']) < LIMIT:
-            #     print(tweet_time_line)
-            #     continue
-            scrapy_tweet = {
-                'id': tweet_time_line,
-                'full_text': tweet['full_text'],
-                'created_at': tweet['created_at'],
-                'favorite_count': tweet['favorite_count'],
-                'quote_count': tweet['quote_count'],
-                'reply_count': tweet['reply_count'],
-                'retweet_count': tweet['retweet_count'],
-                'user_id': user_id_str,
-                'user_name': user['name'],
-                'user_screen_name': user['screen_name'],
-                'user_description': user['description'],
-                'user_friends_count': user['friends_count'],
-                'user_follower_count': user['followers_count'],
-                'user_favorite_count': user['favourites_count'],
-                'user_media_count': user['media_count'],
-                'cursor': params['cursor'],
-                'period': f'{year}-{month+1}'
-            }
-            # print(scrapy_tweet)
-            res.append(scrapy_tweet)
-            scrapy_tweet = pd.DataFrame([scrapy_tweet])
-            df = pd.concat([df, scrapy_tweet], ignore_index=True)
-
-        if i > 0 and i % 2 == 0:
-            df.to_csv(output, index=False)
-            print(df)
-        if len(df) > limit:
-            df.to_csv(output, index=False)
-            print(df)
-            break
-
+import random
 class Queue:
     def __init__(self):
         self.items = []
@@ -531,6 +313,9 @@ class Queue:
 
     def size(self):
         return len(self.items)
+    
+    def shuffle(self):
+        random.shuffle(self.items)
 
 
 def main():
@@ -542,37 +327,46 @@ def main():
     # if event.is_set():
     #     event.clear()
     #     return 0
-    for year in [2020,2021]:
+    # threads = []
+    for year in [2023]:
+        # threads = []
+        # thread_num = 31
         for month in range(12):
             if year == 2023 and month == 5:
-                exit(0)
+                break
             # if month != 0:
             #     continue
-            threads = []
-            thread_num = 31
-            # print(year,month)
+            print(year,month)
             # for day in range(calendar.monthrange(year, month+1)[1]):
+            #     token = queue.dequeue()
+            #     queue.enqueue(token)
+            #     t = threading.Thread(target=task_new, args=(token, year, month, day, 999999, 0))
+            #     threads.append(t)
+            #     t.start()
+            
+            # if month != 10:
+            #     continue
+            
+            thread_num = 31
             for day in range(0, calendar.monthrange(year, month+1)[1], thread_num):
                 numbers = list(range(day, day + thread_num))
+                threads = []
                 for number in numbers:
                     if number < calendar.monthrange(year, month+1)[1]:
                         # print(number)
                         token = queue.dequeue()
                         queue.enqueue(token)
-                        t = threading.Thread(target=task_new, args=(token, year, month, number, 10000, 0))
+                        t = threading.Thread(target=task_new, args=(token, year, month, number, 9999999, 0))
                         threads.append(t)
                         t.start()
-                # time.sleep(0.5)
-                # if event.is_set():
-                #     event.clear()
-                #     return 0
                 for t in threads:
                     t.join()
-            # print('sleep 10s')
-            # time.sleep(60*10)
-            # if event.is_set():
-            #     event.clear()
-            #     return 0
+
+            #     print('next month')
+        # time.sleep(60*5)
+        # for t in threads:
+        #     t.join()
+
 
     return 0
 
@@ -584,17 +378,31 @@ for row in f.readlines():
     token_list.append(row.split('----')[-1][:-1])
     queue.enqueue(row.split('----')[-1][:-1])
 
+print("Original Queue:", len(queue.items))
+
+queue.shuffle()
+
+print("Shuffled Queue:", len(queue.items))
+
 # print(token_list)
 
 
 while (1):
     # print('切换token', token_list[index])
+    # time.sleep(60*15)
+
+
     r = main()
+    print('sleep 30min')
+    # time.sleep(60*5)
+
+
     # index = index + 1
     # if index == len(token_list):
         # time.sleep(60*3)
         # index = 0
-    
-    if (r):
-        break
-    time.sleep(60*15)
+
+    # if (r):
+    #     break
+
+

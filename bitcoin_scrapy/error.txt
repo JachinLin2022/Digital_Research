@@ -1,6 +1,6 @@
-'result'{
-    "entryId": "tweet-1280648901910040579",
-    "sortIndex": "1676658011893873840",
+'media_count'{
+    "entryId": "tweet-1658653739224555520",
+    "sortIndex": "1678375595143036866",
     "content": {
         "entryType": "TimelineTimelineItem",
         "__typename": "TimelineTimelineItem",
@@ -10,256 +10,222 @@
             "tweet_results": {
                 "result": {
                     "__typename": "Tweet",
-                    "rest_id": "1280648901910040579",
+                    "rest_id": "1658653739224555520",
                     "core": {
-                        "user_results": {}
-                    },
-                    "card": {
-                        "rest_id": "https://t.co/okWxACu8AS",
-                        "legacy": {
-                            "binding_values": [
-                                {
-                                    "key": "thumbnail_original",
-                                    "value": {
-                                        "image_value": {
-                                            "height": 512,
-                                            "width": 512,
-                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=jpg&name=orig"
-                                        },
-                                        "type": "IMAGE"
-                                    }
-                                },
-                                {
-                                    "key": "app_star_rating",
-                                    "value": {
-                                        "string_value": "4.65278",
-                                        "type": "STRING"
-                                    }
-                                },
-                                {
-                                    "key": "thumbnail_large",
-                                    "value": {
-                                        "image_value": {
-                                            "height": 280,
-                                            "width": 280,
-                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=jpg&name=280x280"
-                                        },
-                                        "type": "IMAGE"
-                                    }
-                                },
-                                {
-                                    "key": "description",
-                                    "value": {
-                                        "string_value": "This is Real Time Music Playing, Cryptocurrency Paying, Free Money Radio, Cyber.FM",
-                                        "type": "STRING"
-                                    }
-                                },
-                                {
-                                    "key": "thumbnail_small",
-                                    "value": {
-                                        "image_value": {
-                                            "height": 100,
-                                            "width": 100,
-                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=jpg&name=100x100"
-                                        },
-                                        "type": "IMAGE"
-                                    }
-                                },
-                                {
-                                    "key": "thumbnail_color",
-                                    "value": {
-                                        "image_color_value": {
-                                            "palette": [
-                                                {
-                                                    "rgb": {
-                                                        "blue": 255,
-                                                        "green": 255,
-                                                        "red": 255
-                                                    },
-                                                    "percentage": 74.57
-                                                },
-                                                {
-                                                    "rgb": {
-                                                        "blue": 2,
-                                                        "green": 2,
-                                                        "red": 2
-                                                    },
-                                                    "percentage": 24.16
-                                                },
-                                                {
-                                                    "rgb": {
-                                                        "blue": 114,
-                                                        "green": 114,
-                                                        "red": 114
-                                                    },
-                                                    "percentage": 1.83
-                                                }
-                                            ]
-                                        },
-                                        "type": "IMAGE_COLOR"
-                                    }
-                                },
-                                {
-                                    "key": "site",
-                                    "value": {
-                                        "scribe_key": "publisher_id",
-                                        "type": "USER",
-                                        "user_value": {
-                                            "id_str": "37498503",
-                                            "path": []
+                        "user_results": {
+                            "result": {
+                                "__typename": "User",
+                                "id": "VXNlcjoxNjQ4MzUzMzM4MDEzMTQzMDQw",
+                                "rest_id": "1648353338013143040",
+                                "affiliates_highlighted_label": {},
+                                "has_graduated_access": true,
+                                "is_blue_verified": false,
+                                "profile_image_shape": "Circle",
+                                "legacy": {
+                                    "can_dm": false,
+                                    "can_media_tag": true,
+                                    "created_at": "Tue Apr 18 15:50:39 +0000 2023",
+                                    "default_profile": true,
+                                    "default_profile_image": false,
+                                    "description": "If you don\u2019t have a competitive advantage",
+                                    "entities": {
+                                        "description": {
+                                            "urls": []
                                         }
-                                    }
-                                },
-                                {
-                                    "key": "thumbnail_x_large",
-                                    "value": {
-                                        "image_value": {
-                                            "height": 512,
-                                            "width": 512,
-                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=png&name=2048x2048_2_exp"
-                                        },
-                                        "type": "IMAGE"
-                                    }
-                                },
-                                {
-                                    "key": "app_num_ratings",
-                                    "value": {
-                                        "string_value": "72",
-                                        "type": "STRING"
-                                    }
-                                },
-                                {
-                                    "key": "app_price_amount",
-                                    "value": {
-                                        "string_value": "0.0",
-                                        "type": "STRING"
-                                    }
-                                },
-                                {
-                                    "key": "thumbnail",
-                                    "value": {
-                                        "image_value": {
-                                            "height": 144,
-                                            "width": 144,
-                                            "url": "https://pbs.twimg.com/card_img/1676256578691821570/DM0Av-eb?format=jpg&name=144x144"
-                                        },
-                                        "type": "IMAGE"
-                                    }
-                                },
-                                {
-                                    "key": "app_name",
-                                    "value": {
-                                        "string_value": "Cyber.FM",
-                                        "type": "STRING"
-                                    }
-                                },
-                                {
-                                    "key": "title",
-                                    "value": {
-                                        "string_value": "Cyber.FM",
-                                        "type": "STRING"
-                                    }
-                                },
-                                {
-                                    "key": "app_price_currency",
-                                    "value": {
-                                        "string_value": "USD",
-                                        "type": "STRING"
-                                    }
-                                },
-                                {
-                                    "key": "card_url",
-                                    "value": {
-                                        "scribe_key": "card_url",
-                                        "string_value": "https://t.co/okWxACu8AS",
-                                        "type": "STRING"
-                                    }
-                                }
-                            ],
-                            "card_platform": {
-                                "platform": {
-                                    "audience": {
-                                        "name": "production"
                                     },
-                                    "device": {
-                                        "name": "Swift",
-                                        "version": "12"
-                                    }
+                                    "favourites_count": -1,
+                                    "followers_count": -1,
+                                    "friends_count": -1,
+                                    "has_custom_timelines": false,
+                                    "is_translator": false,
+                                    "location": "",
+                                    "name": "Meda Casper",
+                                    "normal_followers_count": -1,
+                                    "pinned_tweet_ids_str": [],
+                                    "possibly_sensitive": false,
+                                    "profile_banner_url": "https://pbs.twimg.com/profile_banners/1648353338013143040/1683030261",
+                                    "profile_image_url_https": "https://pbs.twimg.com/profile_images/1653374856858333185/ryFMh_HY_normal.jpg",
+                                    "profile_interstitial_type": "",
+                                    "screen_name": "MedaCasper16795",
+                                    "statuses_count": -1,
+                                    "translator_type": "none",
+                                    "verified": false,
+                                    "want_retweets": false,
+                                    "withheld_in_countries": []
                                 }
-                            },
-                            "name": "app",
-                            "url": "https://t.co/okWxACu8AS",
-                            "user_refs_results": [
-                                {}
-                            ]
+                            }
                         }
-                    },
-                    "unified_card": {
-                        "card_fetch_state": "NoCard"
                     },
                     "edit_control": {
                         "edit_tweet_ids": [
-                            "1280648901910040579"
+                            "1658653739224555520"
                         ],
-                        "editable_until_msecs": "1594167266178",
+                        "editable_until_msecs": "1684290642000",
                         "is_edit_eligible": true,
                         "edits_remaining": "5"
                     },
-                    "edit_perspective": {
-                        "favorited": false,
-                        "retweeted": false
-                    },
-                    "is_translatable": true,
+                    "is_translatable": false,
                     "views": {
-                        "state": "Enabled"
+                        "count": "2",
+                        "state": "EnabledWithCount"
                     },
-                    "source": "<a href=\"http://cyber-fm.com\" rel=\"nofollow\">CFM Rock</a>",
+                    "source": "<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>",
+                    "quoted_status_result": {
+                        "result": {
+                            "__typename": "Tweet",
+                            "rest_id": "1658521141000929297",
+                            "core": {
+                                "user_results": {
+                                    "result": {
+                                        "__typename": "User",
+                                        "id": "VXNlcjo4Nzc4MDc5MzU0OTMwMzM5ODQ=",
+                                        "rest_id": "877807935493033984",
+                                        "affiliates_highlighted_label": {},
+                                        "has_graduated_access": true,
+                                        "is_blue_verified": true,
+                                        "profile_image_shape": "Square",
+                                        "legacy": {
+                                            "can_dm": false,
+                                            "can_media_tag": true,
+                                            "created_at": "Thu Jun 22 08:38:15 +0000 2017",
+                                            "default_profile": false,
+                                            "default_profile_image": false,
+                                            "description": "The world\u2019s leading blockchain ecosystem and digital asset exchange. #Binance #BNB For support: @BinanceHelpDesk",
+                                            "entities": {
+                                                "description": {
+                                                    "urls": []
+                                                },
+                                                "url": {
+                                                    "urls": [
+                                                        {
+                                                            "display_url": "bit.ly/BinanceCryptoA\u2026",
+                                                            "expanded_url": "http://bit.ly/BinanceCryptoApp",
+                                                            "url": "https://t.co/1not5QbiqF",
+                                                            "indices": [
+                                                                0,
+                                                                23
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "fast_followers_count": 0,
+                                            "favourites_count": 4497,
+                                            "followers_count": 10652245,
+                                            "friends_count": 545,
+                                            "has_custom_timelines": true,
+                                            "is_translator": false,
+                                            "listed_count": 29632,
+                                            "location": "",
+                                            "media_count": 9512,
+                                            "name": "Binance",
+                                            "normal_followers_count": 10652245,
+                                            "pinned_tweet_ids_str": [
+                                                "1684505536580964353"
+                                            ],
+                                            "possibly_sensitive": false,
+                                            "profile_banner_url": "https://pbs.twimg.com/profile_banners/877807935493033984/1688223552",
+                                            "profile_image_url_https": "https://pbs.twimg.com/profile_images/1675157106213761024/ZdGEaW1k_normal.jpg",
+                                            "profile_interstitial_type": "",
+                                            "screen_name": "binance",
+                                            "statuses_count": 27580,
+                                            "translator_type": "none",
+                                            "url": "https://t.co/1not5QbiqF",
+                                            "verified": false,
+                                            "verified_type": "Business",
+                                            "want_retweets": false,
+                                            "withheld_in_countries": []
+                                        }
+                                    }
+                                }
+                            },
+                            "edit_control": {
+                                "edit_tweet_ids": [
+                                    "1658521141000929297"
+                                ],
+                                "editable_until_msecs": "1684259028000",
+                                "is_edit_eligible": true,
+                                "edits_remaining": "5"
+                            },
+                            "is_translatable": true,
+                            "views": {
+                                "count": "615910",
+                                "state": "EnabledWithCount"
+                            },
+                            "source": "<a href=\"https://mobile.twitter.com\" rel=\"nofollow\">Twitter Web App</a>",
+                            "legacy": {
+                                "bookmark_count": 6,
+                                "bookmarked": false,
+                                "created_at": "Tue May 16 17:13:48 +0000 2023",
+                                "conversation_id_str": "1658521141000929297",
+                                "display_text_range": [
+                                    0,
+                                    31
+                                ],
+                                "entities": {
+                                    "user_mentions": [],
+                                    "urls": [],
+                                    "hashtags": [],
+                                    "symbols": []
+                                },
+                                "favorite_count": 1791,
+                                "favorited": false,
+                                "full_text": "What first got you into crypto?",
+                                "is_quote_status": false,
+                                "lang": "en",
+                                "quote_count": 74,
+                                "reply_count": 1896,
+                                "retweet_count": 306,
+                                "retweeted": false,
+                                "user_id_str": "877807935493033984",
+                                "id_str": "1658521141000929297"
+                            }
+                        }
+                    },
                     "legacy": {
                         "bookmark_count": 0,
                         "bookmarked": false,
-                        "created_at": "Tue Jul 07 23:44:26 +0000 2020",
-                        "conversation_id_str": "1280648901910040579",
+                        "created_at": "Wed May 17 02:00:42 +0000 2023",
+                        "conversation_id_str": "1658653739224555520",
                         "display_text_range": [
                             0,
-                            220
+                            42
                         ],
                         "entities": {
                             "user_mentions": [],
                             "urls": [
                                 {
-                                    "display_url": "cyber-fm.com",
-                                    "expanded_url": "https://cyber-fm.com",
-                                    "url": "https://t.co/okWxACu8AS",
+                                    "display_url": "twitter.com/binance/status\u2026",
+                                    "expanded_url": "https://twitter.com/binance/status/1658521141000929297",
+                                    "url": "https://t.co/HJwkjyrHaD",
                                     "indices": [
-                                        123,
-                                        146
+                                        19,
+                                        42
                                     ]
                                 }
                             ],
-                            "hashtags": [
-                                {
-                                    "indices": [
-                                        104,
-                                        119
-                                    ],
-                                    "text": "cryptocurrency"
-                                }
-                            ],
+                            "hashtags": [],
                             "symbols": []
                         },
                         "favorite_count": 0,
                         "favorited": false,
-                        "full_text": "The greatest decade of all time: Hair Metal! We are playing Beg For Your Love by Rhino Bucket! Get paid #cryptocurrency at https://t.co/okWxACu8AS trade it for Bitcoin, Ethereum, even TRON (We know Justin is a metalhead)",
-                        "is_quote_status": false,
+                        "full_text": "For me is Bitcoin. https://t.co/HJwkjyrHaD",
+                        "is_quote_status": true,
                         "lang": "en",
                         "possibly_sensitive": false,
                         "possibly_sensitive_editable": true,
                         "quote_count": 0,
+                        "quoted_status_id_str": "1658521141000929297",
+                        "quoted_status_permalink": {
+                            "url": "https://t.co/HJwkjyrHaD",
+                            "expanded": "https://twitter.com/binance/status/1658521141000929297",
+                            "display": "twitter.com/binance/status\u2026"
+                        },
                         "reply_count": 0,
                         "retweet_count": 0,
                         "retweeted": false,
-                        "user_id_str": "37520123",
-                        "id_str": "1280648901910040579"
+                        "user_id_str": "1648353338013143040",
+                        "id_str": "1658653739224555520"
                     }
                 }
             },
@@ -267,8 +233,8 @@
             "highlights": {
                 "textHighlights": [
                     {
-                        "startIndex": 160,
-                        "endIndex": 167
+                        "startIndex": 10,
+                        "endIndex": 17
                     }
                 ]
             }
@@ -278,7 +244,7 @@
             "element": "tweet",
             "details": {
                 "timelinesDetails": {
-                    "controllerData": "DAACDAAFDAABDAABDAABCgABAAAAAAAAAAAAAAwAAgoAAQAAAAAAAAABCgACjsnRIKr0nL0KAAVI3K2n1r/X+AgABgAAAAEKAAeZvlLggdT5NgAAAAAA"
+                    "controllerData": "DAACDAAFDAABDAABDAABCgABAAAAAAAAAAAAAAwAAgoAAQAAAAAAAAABCgACIOHvYuBSEA4KAAUoWjmAjS09tAgABgAAAAEKAAe4N4hUj44ZIQAAAAAA"
                 }
             }
         }
