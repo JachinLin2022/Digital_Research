@@ -25,3 +25,22 @@
 - analysis_hourly.ipynb：按小时进行相关性分析
 - data.ipynb:数据处理
 - regression.ipynb：自回归分析
+
+## 数据
+
+
+全量推文数据：https://www.kaggle.com/datasets/jachinlin2022/twitter-and-reddit-post-from-2020-01-012023-05-31
+- pred, scores 情感分析结果
+- label 过滤模型结果，0为价格不相关，1为价格相关
+- full_text 推文正文
+
+## 流程
+1. 使用bitcoin_scrapy爬取Twitter数据，在main.ipynb对数据remove_link并对正文去重
+2. 训练过滤模型，使用FilterModel\data\filter_model_data.csv作为训练集，FilterModel\data\filter_model_manual_400.csv作为测试集。
+3. 使用过滤模型对（1）爬取的数据进行过滤
+4. 训练情感模型，使用EmotionModel\train_data_3_class_clean.jsonl指令微调
+5. 使用情感模型对(3)过滤后的数据进行情感分析
+6. 在EmotionModel\get_best_corr.ipynb中，对（5）分析后的数据进行点赞转发过滤后daily聚合为index
+7. 在EmotionModel\regression.ipynb中，对(6)聚合后的数据进行自回归、线性回归、因果检验
+
+
